@@ -7,11 +7,11 @@ const app = express()
 
 
 
-app.get('/test',(req,res)=>{
+// app.get('/test',(req,res)=>{
 
-    res.json("hello this is the backend")
+//     res.json("It works")
    
-    })
+//     })
 
 
 app.use(express.json())

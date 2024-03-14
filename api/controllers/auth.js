@@ -8,16 +8,18 @@ export  const register = (req,res)=>{
         if(err) return res.json(err)
         if(data.length) return res.status(409).json("User already exist!");
 
-        //HASH the pass
-        const salt = bcrypt.genSaltsync(10);
+        // HASH the pass and create user
+        const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
 
-        const q = "INSERT INTO users(`username`,`email`, `password`) VALUES(?)"
-
+        //const q = "INSERT INTO users(`username`,`email`, `password`,`img`) VALUES(?)"
+        const q = "CALL spCreateUser (?)"
         const values = [
             req.body.username,
             req.body.email,
             hash,
+            "test"
+
         ]
         db.query(q,[values], (err,data)=>{
             if (err) return res.json(err);
@@ -26,7 +28,7 @@ export  const register = (req,res)=>{
 
 
     });
-}
+};
 export const login = (req, res) => {
 } 
 export const logout = (req, res) => {
